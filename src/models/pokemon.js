@@ -61,28 +61,29 @@ module.exports = (sequelize, DataTypes) => {
       types: {
         type: DataTypes.STRING,
         allowNull: false,
-        get(){
-            return this.getDataValue('types').split(',')
+        get() {
+            const typesValue = this.getDataValue('types');
+            return typesValue ? typesValue.split(',') : [];
         },
-        set(types){
-            this.setDataValue('types', types.join())
+        set(types) {
+            this.setDataValue('types', types.join());
         },
         validate: {
             isTypesValid(value) {
-                if(!value) {
+                if (!value) {
                     throw new Error("Un pokémon doit avoir au moins un type.")
                 }
-                if(value.split(',').lenght >3){
+                if (value.split(',').length > 3) {
                     throw new Error("Un pokémon ne peut pas avoir plus de trois types.")
                 }
-                value.split(',').forEach(type =>{
-                    if(!validTypes.includes(type)){
+                value.split(',').forEach(type => {
+                    if (!validTypes.includes(type)) {
                         throw new Error(`Le type d'un pokémon doit appartenir à la liste suivante : ${validTypes}`)
                     }
                 })
             }
         }
-      }
+    }
     }, {
       timestamps: true,
       createdAt: 'created',
