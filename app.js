@@ -12,9 +12,9 @@ app
 
     Sequelize.initDb()
 
-   /* app.get('/', (req, res) =>{
+    app.get('/', (req, res) =>{
         res.json('Hello, Heroku!')
-    })*/
+    })
 
     require('./src/routes/findAllPokemons')(app)
     require('./src/routes/findPokemonByPK')(app)
